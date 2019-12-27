@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "1016584265030",
+    "firebase_url": "https://heremaps-86ae9.firebaseio.com",
+    "project_id": "heremaps-86ae9",
+    "storage_bucket": "heremaps-86ae9.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1016584265030:android:e2a21cef5c976b2f075947",
+        "android_client_info": {
+          "package_name": "com.example.heremaps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1016584265030-54e726duhhdbhctin8aqrn62q5ge81pp.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.heremaps",
+            "certificate_hash": "ad23bcc0327ba1e235e1ca12128a86dc9cbb1b92"
+          }
+        },
+        {
+          "client_id": "1016584265030-q5n953p544ft7n4v5c0eblc84ic38p2q.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWsSuc4HH6NJl02XFTQVJt66g1tSL05_U"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1016584265030-q5n953p544ft7n4v5c0eblc84ic38p2q.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
