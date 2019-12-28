@@ -20,6 +20,12 @@ public class Firebase_Helper2 {
             myRef.child("Zone").child(zone).child("Subzone").child(subzone).child("User"+i+":").setValue(i);
 
         }
+
+        public void delete(String zone,String subzone,int i){
+            if(i>10){
+              myRef.child("Zone").child(zone).child("Subzone").child(subzone).child("User"+(i-10)+":").removeValue();
+        }
+}
 }
 
 

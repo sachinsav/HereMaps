@@ -13,14 +13,14 @@ import android.provider.Settings;
 //import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
-import com.example.heremaps.Firebase_Helper2;
+//import com.example.heremaps.Firebase_Helper2;
 
 //package com.example.securityapplication;
 
 public class GetGPSCoordinates extends Service {
     private LocationListener listener;
     private LocationManager locationManager;
-    private static String lastKnownLocation=null;
+//    private static String lastKnownLocation=null;
     String Latitude;
     String Longitude;
     static int up=0;
@@ -31,14 +31,14 @@ public class GetGPSCoordinates extends Service {
         return null;
     }
 
-    public static String getLastKnownLocation(){
-        return lastKnownLocation;
-    }
+//    public static String getLastKnownLocation(){
+//        return lastKnownLocation;
+//    }
 
     @SuppressLint("MissingPermission")
     @Override
     public void onCreate() {
-        Toast.makeText(getApplicationContext(),"Oncreate",Toast.LENGTH_SHORT);
+//        Toast.makeText(getApplicationContext(),"Oncreate",Toast.LENGTH_SHORT);
         Log.d("GPSService","Oncreate");
         Firebase_Helper2 fb=new Firebase_Helper2();
         listener = new LocationListener() {
@@ -46,7 +46,7 @@ public class GetGPSCoordinates extends Service {
             public void onLocationChanged(Location location) {
                 up++;
                 Intent i = new Intent("location_update");
-                GetGPSCoordinates.lastKnownLocation=ddToDms(location.getLatitude(),location.getLongitude()) ;
+//                GetGPSCoordinates.lastKnownLocation=ddToDms(location.getLatitude(),location.getLongitude()) ;
 
                 i.putExtra("coordinates", location.getLatitude()+","+location.getLongitude() );
                 Log.d("GPSService","coordinates  "+Latitude+","+Longitude );
@@ -66,6 +66,7 @@ public class GetGPSCoordinates extends Service {
 
                 Log.d("abhishek",zone+"Howdyyyyyyyyyyyyyyyyy");
                 fb.insert(zone,sub_zone,up);
+                fb.delete(zone,sub_zone,up);
             }
 
 
@@ -95,29 +96,14 @@ public class GetGPSCoordinates extends Service {
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,listener);
 
     }
-    /*
-    public int[] degreeToDMS(double coordinate){
-        coordinate=Math.abs(coordinate);
-        int c_degrees= (int)coordinate ;
 
-        double minutes_seconds= coordinate-c_degrees;
-        double minutes= (minutes_seconds*60);
-        int c_minutes= (int)minutes;
-
-        double seconds= (minutes%1)*60;
-        int c_seconds=(int)seconds;
-
-    }*/
     public String ddToDms(double ilat,double ilng) {
 
         double lat = ilat;
         double lng = ilng;
         String latResult, lngResult;
-        String DMS_coordinates; //degree-minute-second converted decimal
-        // Make sure that you are working with numbers.
-        // This is important in case you are working with values
+        String DMS_coordinates;
 
-        // Check the correspondence of the coordinates for latitude: North or South.
 
         String Strlat= Location.convert(ilat,Location.FORMAT_SECONDS);
         String[] split_Strlat=Strlat.split(":");
