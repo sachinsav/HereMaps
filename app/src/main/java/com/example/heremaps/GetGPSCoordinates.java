@@ -20,9 +20,11 @@ import android.widget.Toast;
 public class GetGPSCoordinates extends Service {
     private LocationListener listener;
     private LocationManager locationManager;
-//    private static String lastKnownLocation=null;
+    private static String lastKnownLocation=null;
     String Latitude;
     String Longitude;
+    String zone;
+    String sub_zone;
     static int up=0;
 
 //    @Nullable
@@ -31,9 +33,9 @@ public class GetGPSCoordinates extends Service {
         return null;
     }
 
-//    public static String getLastKnownLocation(){
-//        return lastKnownLocation;
-//    }
+    public static String getLastKnownLocation(){
+        return lastKnownLocation;
+    }
 
     @SuppressLint("MissingPermission")
     @Override
@@ -46,29 +48,28 @@ public class GetGPSCoordinates extends Service {
             public void onLocationChanged(Location location) {
                 up++;
                 Intent i = new Intent("location_update");
-//                GetGPSCoordinates.lastKnownLocation=ddToDms(location.getLatitude(),location.getLongitude()) ;
-
+                GetGPSCoordinates.lastKnownLocation=ddToDms(location.getLatitude(),location.getLongitude()) ;
                 i.putExtra("coordinates", location.getLatitude()+","+location.getLongitude() );
                 Log.d("GPSService","coordinates  "+Latitude+","+Longitude );
-//                Toast.makeText(getApplicationContext(),"coordinates"+location.getLatitude()+","+location.getLongitude() ,Toast.LENGTH_SHORT);
-//                sendBroadcast(i);
+                Toast.makeText(getApplicationContext(),"coordinates"+location.getLatitude()+","+location.getLongitude() ,Toast.LENGTH_SHORT);
+                sendBroadcast(i);
 
 
                 //======FireBase Updation====================
+//                Log.d("Latitude", Latitude);
                 String lat_deg[]=Latitude.split("°");
                 String lat_min[]=lat_deg[1].split("\'");
 
                 String long_deg[]=Longitude.split("°");
                 String long_min[]=long_deg[1].split("\'");
 
-                String zone=lat_deg[0]+" , "+long_deg[0];
-                String sub_zone=lat_min[0]+" , "+long_min[0];
+                zone=lat_deg[0]+" , "+long_deg[0];
+                sub_zone=lat_min[0]+" , "+long_min[0];
 
                 Log.d("abhishek",zone+"Howdyyyyyyyyyyyyyyyyy");
                 fb.insert(zone,sub_zone,up);
                 fb.delete(zone,sub_zone,up);
             }
-
 
             @Override
             public void onStatusChanged(String s, int i, Bundle bundle) {
@@ -90,7 +91,7 @@ public class GetGPSCoordinates extends Service {
 
         locationManager = (LocationManager) getApplicationContext().getSystemService(Context.LOCATION_SERVICE);
 
-        //noinspection MissingPermission
+//        noinspection MissingPermission
 
         locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 5000, 0, listener);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,0,0,listener);

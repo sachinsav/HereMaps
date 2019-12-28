@@ -22,6 +22,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 //<<<<<<< HEAD
@@ -46,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "HereMaps";
     private MapViewLite mapView;
     Context context = this;
-
+    String zone,sub_zone;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,7 +62,8 @@ public class MainActivity extends AppCompatActivity {
           loadMapScene();
         startService(new Intent(this,GetGPSCoordinates.class));
 
-//<<<<<<< HEAD
+//<<<<<<< HEA
+
     }
 
     boolean checkGPSPermission() {
@@ -130,6 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("GPS In MainActivity","GPS Permissions granted");
                       startService(new Intent(this,GetGPSCoordinates.class));
+                      Log.d("Service", "Working..................");
 //                    GpsPermission = true;
 
                 } else {
@@ -144,24 +147,23 @@ public class MainActivity extends AppCompatActivity {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
 
-//        @Override
-//        protected void onPause() {
-//            super.onPause();
-//        mapView.onPause();
-//    }
-//
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        mapView.onResume();
-//    }
-//
-//    @Override
-//    protected void onDestroy() {
-//        super.onDestroy();
-//        mapView.onDestroy();
-//    }
-
 
 }
+
+    public void onClick(View view) {
+
+        GetGPSCoordinates gps=new GetGPSCoordinates();
+        zone=gps.zone;
+        sub_zone=gps.sub_zone;
+        Log.d("onAlertClick1", zone+" and "+sub_zone);
+        new Firebase_Helper2().retrieve(zone, sub_zone);
+    }
+
+    /**   public void onAlertClick(View view) {
+        GetGPSCoordinates gps=new GetGPSCoordinates();
+        zone=gps.zone;
+        sub_zone=gps.sub_zone;
+        Log.d("onAlertClick1", zone+" and "+sub_zone);
+        new Firebase_Helper2().retrieve(zone, sub_zone);
+    }**/
 }
