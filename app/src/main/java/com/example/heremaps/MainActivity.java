@@ -5,6 +5,7 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 
+
 import android.content.Context;
 import android.os.Bundle;
 
@@ -18,16 +19,10 @@ import android.widget.Switch;
 
 
 import android.view.View;
-import android.widget.Toast;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
-//<<<<<<< HEAD
-////import com.google.firebase.database.DatabaseReference;
-////import com.google.firebase.database.FirebaseDatabase;
-//||||||| f1b04a4
-//=======
 import com.here.sdk.core.Anchor2D;
-//>>>>>>> 0f10f2b2202a819080bef1443680524e496e30df
-
 import com.here.sdk.core.GeoCoordinates;
 import com.here.sdk.mapviewlite.MapImage;
 import com.here.sdk.mapviewlite.MapImageFactory;
@@ -45,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     private Switch aSwitch;
     Context context = this;
     String zone,sub_zone;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,7 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    boolean checkGPSPermission() {
+    void checkGPSPermission() {
         Log.d("MainActivity", "Inside CheckGPSPermission");
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {   //permissions not granted
             final int d = Log.d("GPS Access in Main", "Requesting GPS Location");
@@ -89,16 +85,8 @@ public class MainActivity extends AppCompatActivity {
             //ContextCompat.startForegroundService(this,new Intent(this,GetGPSCoordinates.class));
 //            GpsPermission = true;
         }
-
-
-        return ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED;
-
-
-//||||||| f1b04a4
-
-
-
     }
+
 
     /**Loads MapScene in NaturalDay, Satellite View and locates the user by using pins on map **/
     private void loadMapScene(MapStyle mapStyle) {
@@ -136,41 +124,25 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
-
-
     }
+
     @Override
-    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
-        switch (requestCode) {
-//            case 101:
-//                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    deviceId();
-//                } else if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED){
-//                    closeNow();
-//                    Toast.makeText(this, "Permission denied", Toast.LENGTH_LONG).show();
-//                }
-//                break;
-                case 102:
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Log.d("GPS In MainActivity","GPS Permissions granted");
-                      startService(new Intent(this,GetGPSCoordinates.class));
-//                      Log.d("Service", "Working..................");
-//                    GpsPermission = true;
+    protected void onPause() {
+        super.onPause();
+        mapView.onPause();
+    }
 
-                } else {
-//                    GpsPermission = false;
-                    Toast.makeText(getApplicationContext(),"Location Permission Denied ",Toast.LENGTH_LONG).show();
-//                    closeNow();
-                    //Permission Required Prompt
-//                    checkGPSPermission();
-                }
-                break;
-            default:
-                super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mapView.onResume();
+    }
 
-
-}
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mapView.onDestroy();
+    }
 
     public void onClick(View view) {
 
@@ -180,6 +152,7 @@ public class MainActivity extends AppCompatActivity {
 //        Log.d("onAlertClick1", zone+" and "+sub_zone);
         new Firebase_Helper2().retrieve(zone, sub_zone);
     }
+
 
 
 }
