@@ -18,8 +18,6 @@ public class Firebase_Helper2 {
 
     FirebaseDatabase database;
     DatabaseReference myRef,dbRef;
-//    List<String> userId = new ArrayList<>();
-
 
     Firebase_Helper2() {
         database = FirebaseDatabase.getInstance();
@@ -27,16 +25,19 @@ public class Firebase_Helper2 {
         Log.d("Firebase_Helper2","FireBase Object Created");
     }
         public void insert(String zone,String sub_zone,int i) {
-
             myRef.child("Zone").child(zone).child("Subzone").child(sub_zone).child("User"+i+":").setValue(i);
 
         }
+
+//        ====Deleting user when he/she changes the zone=======
 
         public void delete(String zone,String sub_zone,int i){
             if(i>10){
               myRef.child("Zone").child(zone).child("Subzone").child(sub_zone).child("User"+(i-10)+":").removeValue();
             }
         }
+
+        //===========Retrieveing users on alert raise============
 
         public void retrieve(String zone,String sub_zone){
             dbRef=database.getReference();
@@ -48,7 +49,7 @@ public class Firebase_Helper2 {
                     if (dataSnapshot.exists()){
                         for(DataSnapshot singleSnapshot : dataSnapshot.getChildren()){
                             Map<String, String> td = (HashMap<String,String>) dataSnapshot.getValue();
-                            List<String> values = (List<String>) td.values();
+                            List<String> values = new ArrayList<String> (td.values());
 //                            user = singleSnapshot.getValue();
                             Log.d("Abhishek",values.toString());
                         }

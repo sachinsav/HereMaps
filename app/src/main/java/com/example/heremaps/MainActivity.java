@@ -132,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                     Log.d("GPS In MainActivity","GPS Permissions granted");
                       startService(new Intent(this,GetGPSCoordinates.class));
-                      Log.d("Service", "Working..................");
+//                      Log.d("Service", "Working..................");
 //                    GpsPermission = true;
 
                 } else {
@@ -155,15 +155,9 @@ public class MainActivity extends AppCompatActivity {
         GetGPSCoordinates gps=new GetGPSCoordinates();
         zone=gps.zone;
         sub_zone=gps.sub_zone;
-        Log.d("onAlertClick1", zone+" and "+sub_zone);
+//        Log.d("onAlertClick1", zone+" and "+sub_zone);
         new Firebase_Helper2().retrieve(zone, sub_zone);
     }
 
-    /**   public void onAlertClick(View view) {
-        GetGPSCoordinates gps=new GetGPSCoordinates();
-        zone=gps.zone;
-        sub_zone=gps.sub_zone;
-        Log.d("onAlertClick1", zone+" and "+sub_zone);
-        new Firebase_Helper2().retrieve(zone, sub_zone);
-    }**/
+
 }

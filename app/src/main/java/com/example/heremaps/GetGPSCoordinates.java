@@ -66,7 +66,7 @@ public class GetGPSCoordinates extends Service {
                 zone=lat_deg[0]+" , "+long_deg[0];
                 sub_zone=lat_min[0]+" , "+long_min[0];
 
-                Log.d("abhishek",zone+"Howdyyyyyyyyyyyyyyyyy");
+//                Log.d("abhishek",zone+"Howdyyyyyyyyyyyyyyyyy");
                 fb.insert(zone,sub_zone,up);
                 fb.delete(zone,sub_zone,up);
             }
