@@ -10,23 +10,15 @@
     <com.here.sdk.mapviewlite.MapViewLite
         android:id="@+id/map_view"
         android:layout_width="match_parent"
-<<<<<<< HEAD
         android:layout_height="match_parent">
 
-        <Switch
-            android:id="@+id/switchView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Satellite" />
     </com.here.sdk.mapviewlite.MapViewLite>
 
-
-</LinearLayout>
-=======
-        android:layout_height="500dp">
-
-
-    </com.here.sdk.mapviewlite.MapViewLite>
+    <Switch
+        android:id="@+id/switchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Satellite" />
 
     <Button
         android:id="@+id/button"
@@ -41,4 +33,3 @@
         android:onClick="onClick"/>
 
 </RelativeLayout>
->>>>>>> 893f4ca7d2c79d917c6c81ca37cca2ecd48b37ce

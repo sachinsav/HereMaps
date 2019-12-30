@@ -1,21 +1,11 @@
 package com.example.heremaps;
-//
-//<<<<<<< HEAD
-//import androidx.annotation.Nullable;
-//import androidx.appcompat.app.AppCompatActivity;
-//import androidx.core.app.ActivityCompat;
-//import androidx.core.content.ContextCompat;
+
 
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-//||||||| f1b04a4
-////import androidx.annotation.Nullable;
-////import androidx.appcompat.app.AppCompatActivity;
-//
-//=======
+
 import android.content.Context;
-//>>>>>>> 0f10f2b2202a819080bef1443680524e496e30df
 import android.os.Bundle;
 
 import android.support.v4.app.ActivityCompat;
@@ -67,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
         checkGPSPermission();
 //        LocationService obj=new LocationService();
 //        obj.getCoordinates();
-         
+
         aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
