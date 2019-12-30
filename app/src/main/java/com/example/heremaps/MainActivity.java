@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.widget.CompoundButton;
+import android.widget.Switch;
 
 import com.here.sdk.core.Anchor2D;
 import com.here.sdk.core.GeoCoordinates;
@@ -20,6 +22,8 @@ public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = "HereMaps";
     private MapViewLite mapView;
+    private MapStyle mapStyle;
+    private Switch aSwitch;
     Context context = this;
 
     @Override
@@ -28,34 +32,57 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // Get a MapViewLite instance from the layout.
+        aSwitch = findViewById(R.id.switchView);
         mapView = findViewById(R.id.map_view);
         mapView.onCreate(savedInstanceState);
 
-        loadMapScene();
+
+        aSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if(isChecked){
+                    mapStyle = MapStyle.SATELLITE;
+                    loadMapScene(mapStyle);
+                }
+                else{
+                    mapStyle = MapStyle.NORMAL_DAY;
+                    loadMapScene(mapStyle);
+                }
+            }
+        });
+
     }
 
+    /**Loads MapScene in NaturalDay, Satellite View and locates the user by using pins on map **/
+    private void loadMapScene(MapStyle mapStyle) {
 
-    private void loadMapScene() {
-
-        GeoCoordinates geoCoordinates = new GeoCoordinates(19.384046299999998, 72.8284918);
+        GeoCoordinates geoCoordinatesAlert = new GeoCoordinates(19.384046299999998, 72.8284918);
+        GeoCoordinates geoCoordinatesSaviour = new GeoCoordinates(19.404046299999998, 72.8284918);
 
         // Load a scene from the SDK to render the map with a map style.
-        mapView.getMapScene().loadScene(MapStyle.NORMAL_DAY, new MapScene.LoadSceneCallback() {
+
+        mapView.getMapScene().loadScene(this.mapStyle, new MapScene.LoadSceneCallback() {
             @Override
             public void onLoadScene(MapScene.ErrorCode errorCode) {
                 if (errorCode == null) {
                     //Current location view
-                    mapView.getCamera().setTarget(geoCoordinates);
+                    mapView.getCamera().setTarget(geoCoordinatesAlert);
                     mapView.getCamera().setZoomLevel(14);
                     //Show the marker on map
-                    MapImage mapImage = MapImageFactory.fromResource(context.getResources(),R.drawable.pin);
-                    MapMarker mapMarker = new MapMarker(geoCoordinates);
+                    MapImage mapImageAlert = MapImageFactory.fromResource(context.getResources(),R.drawable.alert);
+                    MapMarker mapMarkerAlert = new MapMarker(geoCoordinatesAlert);
+
+                    MapImage mapImageSaviour = MapImageFactory.fromResource(context.getResources(),R.drawable.saviour);
+                    MapMarker mapMarkerSaviour = new MapMarker(geoCoordinatesSaviour);
 
                     MapMarkerImageStyle mapMarkerImageStyle = new MapMarkerImageStyle();
                     mapMarkerImageStyle.setAnchorPoint(new Anchor2D(0.5F, 1));
                     mapMarkerImageStyle.setScale(0.06F);
-                    mapMarker.addImage(mapImage, mapMarkerImageStyle);
-                    mapView.getMapScene().addMapMarker(mapMarker);
+                    mapMarkerAlert.addImage(mapImageAlert, mapMarkerImageStyle);
+                    mapView.getMapScene().addMapMarker(mapMarkerAlert);
+
+                    mapMarkerSaviour.addImage(mapImageSaviour, mapMarkerImageStyle);
+                    mapView.getMapScene().addMapMarker(mapMarkerSaviour);
 
                 } else {
                     Log.d(TAG, "onLoadScene failed: " + errorCode.toString());
