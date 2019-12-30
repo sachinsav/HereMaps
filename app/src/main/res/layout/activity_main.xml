@@ -15,6 +15,12 @@
 
     </com.here.sdk.mapviewlite.MapViewLite>
 
+    <Switch
+        android:id="@+id/switchView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Satellite" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="147dp"
